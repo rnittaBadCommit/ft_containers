@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:47:40 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/16 00:02:31 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 02:55:48 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ class	reverse_iterator
 				template< class U >
 				reverse_iterator	&operator=( const ft::reverse_iterator<U>& other )
 				{
-					if (this == &other)
+					if ((const ft::reverse_iterator<U>*)this == &other)
 						return (*this);
 					
 					current = other.base();
@@ -236,10 +236,9 @@ ft::reverse_iterator<Iter>	operator+( typename ft::reverse_iterator<Iter>::diffe
             						const ft::reverse_iterator<Iter>& it )
 { return ft::reverse_iterator<Iter>(it.base() - n); }
 
-template< class Iterator >
-typename ft::reverse_iterator<Iterator>::difference_type
-	operator-( const ft::reverse_iterator<Iterator>& lhs,
-    			const ft::reverse_iterator<Iterator>& rhs )
+template< class Iter1, class Iter2 >
+typename reverse_iterator<Iter1>::difference_type	operator-( const reverse_iterator<Iter1>& lhs,
+																const reverse_iterator<Iter2>& rhs )
 { return (rhs.base() - lhs.base()); }
 // end of Non-member functions (reverse_iterator)
 

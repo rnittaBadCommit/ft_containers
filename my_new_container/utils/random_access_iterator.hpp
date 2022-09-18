@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:47:56 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/16 00:29:32 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 02:46:04 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ class	random_access_iterator
 				: current(other.current)
 				{
 
+				}
+
+				~random_access_iterator()
+				{
+					
 				}
 
 				random_access_iterator&		operator=( const random_access_iterator& other )
@@ -168,9 +173,9 @@ ft::random_access_iterator<Iter>	operator+( typename ft::random_access_iterator<
     											const ft::random_access_iterator<Iter>& it)
 { return ft::random_access_iterator<Iter>(it.base() + n); }
 
-template <class Iterator>
-typename ft::random_access_iterator<Iterator>::difference_type	operator-( const ft::random_access_iterator<Iterator>& lhs,
-  																			const ft::random_access_iterator<Iterator>& rhs)
+template< class Iter1, class Iter2 >
+typename random_access_iterator<Iter1>::difference_type		operator-( const random_access_iterator<Iter1>& lhs
+																		, const random_access_iterator<Iter2>& rhs )
 { return (lhs.base() - rhs.base()); }
 
 
