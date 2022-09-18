@@ -17,7 +17,7 @@ namespace	ft
 				|
 				[DUMMY]
 				/		\
-			[ROOT](7)	[DUMMY]
+			[RB_TREE_ROOT_](7)	[DUMMY]
 			/		\
 		(4)			(14)
 		/			/	\
@@ -412,11 +412,11 @@ class	rb_tree
 			size_type				size_;
 			Compare_				key_compare_;
 		
-		// Macro
-			#define ROOT		dummy_->left
-			#define BEGIN		dummy_->parent
-			#define PREV_END	prev_end
-			#define END			dummy_
+// Macro(define)
+#define RB_TREE_ROOT_		dummy_->left
+#define RB_TREE_BEGIN_		dummy_->parent
+#define RB_TREE_PREV_RB_TREE_END_	prev_end
+#define RB_TREE_END_			dummy_
 
 	public:
 		// Constructors
@@ -441,9 +441,9 @@ class	rb_tree
 				initialize();
 				if (other.size_)
 				{
-					ROOT = copyTree(other.ROOT, dummy_);
-					BEGIN = ROOT->leftest();
-					PREV_END = ROOT->rightest();
+					RB_TREE_ROOT_ = copyTree(other.RB_TREE_ROOT_, dummy_);
+					RB_TREE_BEGIN_ = RB_TREE_ROOT_->leftest();
+					RB_TREE_PREV_RB_TREE_END_ = RB_TREE_ROOT_->rightest();
 				}
 			}
 
@@ -464,9 +464,9 @@ class	rb_tree
 
 				if (other.size_)
 				{
-					ROOT = copyTree(other.ROOT, dummy_);
-					BEGIN = ROOT->leftest();
-					PREV_END = ROOT->rightest();
+					RB_TREE_ROOT_ = copyTree(other.RB_TREE_ROOT_, dummy_);
+					RB_TREE_BEGIN_ = RB_TREE_ROOT_->leftest();
+					RB_TREE_PREV_RB_TREE_END_ = RB_TREE_ROOT_->rightest();
 				}
 
 				return (*this);
@@ -482,28 +482,28 @@ class	rb_tree
 
 
 		// Iterator
-			iterator	begin()
+			inline iterator		begin()
 			{ return (iterator(dummy_->parent)); }
 
-			const_iterator	begin() const
+			inline const_iterator	begin() const
 			{ return (const_iterator(dummy_->parent)); }
 
-			iterator	end()
+			inline iterator		end()
 			{ return (iterator(dummy_)); }
 
-			const_iterator	end() const
+			inline const_iterator	end() const
 			{ return (const_iterator(dummy_)); }
 
-			reverse_iterator rbegin()
+			inline reverse_iterator		rbegin()
 			{ return (reverse_iterator(end())); }
 
-			const_reverse_iterator rbegin() const
+			inline const_reverse_iterator	rbegin() const
 			{ return (const_reverse_iterator(end())); }
 
-			reverse_iterator rend()
+			inline reverse_iterator		rend()
 			{ return (reverse_iterator(begin())); }
 
-			const_reverse_iterator rend() const
+			inline const_reverse_iterator	rend() const
 			{ return (const_reverse_iterator(begin())); }
 
 
@@ -521,7 +521,7 @@ class	rb_tree
 		// Modifiers
 			void	clear()
 			{
-				clear_process_(ROOT);
+				clear_process_(RB_TREE_ROOT_);
 				initialize();
 			}
 
@@ -535,29 +535,29 @@ class	rb_tree
 			{
 				//std::cout << std::endl;
 				//std::cout << "before" << std::endl;
-				// printTree(ROOT);
+				// printTree(RB_TREE_ROOT_);
 				//std::cout << "erase key: " << key << std::endl;
 				
-				if (ROOT == NULL)
+				if (RB_TREE_ROOT_ == NULL)
 					return (0);
 
 				iterator	it_to_delete = lower_bound(key);
-				if (it_to_delete.get_link() == END || key_compare_(key, key_(it_to_delete)))
+				if (it_to_delete.get_link() == RB_TREE_END_ || key_compare_(key, key_(it_to_delete)))
 					return (0);
 
 				link_type	save_it_to_delete = it_to_delete.get_link();
-				link_type	save_begin = BEGIN;
-				link_type	save_prev_end = PREV_END;
+				link_type	save_begin = RB_TREE_BEGIN_;
+				link_type	save_prev_end = RB_TREE_PREV_RB_TREE_END_;
 
 				deleteNode(it_to_delete.get_link());
 				//std::cout << "after" << std::endl;
-				// printTree(ROOT);
+				// printTree(RB_TREE_ROOT_);
 				if (size_)
 				{
 					if (save_it_to_delete == save_begin)
-						BEGIN = ROOT->leftest();
+						RB_TREE_BEGIN_ = RB_TREE_ROOT_->leftest();
 					if (save_it_to_delete == save_prev_end)
-						PREV_END = ROOT->rightest();
+						RB_TREE_PREV_RB_TREE_END_ = RB_TREE_ROOT_->rightest();
 				}
 				else
 					initialize();
@@ -579,11 +579,11 @@ class	rb_tree
 					other.move_data(*this);
 				else
 				{
-					std::swap(ROOT, other.ROOT);
-					std::swap(BEGIN, other.BEGIN);
-					std::swap(PREV_END, other.PREV_END);
-					ROOT->parent = END;
-					other.ROOT->parent = other.END;
+					std::swap(RB_TREE_ROOT_, other.RB_TREE_ROOT_);
+					std::swap(RB_TREE_BEGIN_, other.RB_TREE_BEGIN_);
+					std::swap(RB_TREE_PREV_RB_TREE_END_, other.RB_TREE_PREV_RB_TREE_END_);
+					RB_TREE_ROOT_->parent = RB_TREE_END_;
+					other.RB_TREE_ROOT_->parent = other.RB_TREE_END_;
 					std::swap(size_, other.size_);
 				}
 				std::swap(key_compare_, other.key_compare_);
@@ -596,8 +596,8 @@ class	rb_tree
 			iterator	find( const key_type& key)
 			{
 				iterator	it = lower_bound(key);
-				if (it.get_link() == END || key_compare_(key, key_(it)))
-					return (iterator(END));
+				if (it.get_link() == RB_TREE_END_ || key_compare_(key, key_(it)))
+					return (iterator(RB_TREE_END_));
 				else
 					return (it);
 			}
@@ -605,16 +605,16 @@ class	rb_tree
 			const_iterator	find( const key_type& key) const
 			{
 				const_iterator	it = lower_bound(key);
-				if (it.get_link() == END || key_compare_(key, key_(it)))
-					return (const_iterator(END));
+				if (it.get_link() == RB_TREE_END_ || key_compare_(key, key_(it)))
+					return (const_iterator(RB_TREE_END_));
 				else
 					return (it);
 			}
 
 			ft::pair<iterator, iterator>	equal_range( const key_type& key)
 			{
-				link_type	lower_x = ROOT;
-				link_type	lower_y = END;
+				link_type	lower_x = RB_TREE_ROOT_;
+				link_type	lower_y = RB_TREE_END_;
 
 				while (lower_x)
 				{
@@ -642,8 +642,8 @@ class	rb_tree
 
 			ft::pair<const_iterator, const_iterator>	equal_range( const key_type& key) const
 			{
-				const_link_type		lower_x = ROOT;
-				const_link_type		lower_y = END;
+				const_link_type		lower_x = RB_TREE_ROOT_;
+				const_link_type		lower_y = RB_TREE_END_;
 
 				while (lower_x)
 				{
@@ -671,16 +671,16 @@ class	rb_tree
 
 
 			iterator	lower_bound( const key_type& key )
-			{ return (lower_bound_(ROOT, END, key)); }
+			{ return (lower_bound_(RB_TREE_ROOT_, RB_TREE_END_, key)); }
 
 			const_iterator	lower_bound( const key_type& key ) const
-			{ return (lower_bound_((const_link_type)ROOT, (const_link_type)END, key)); }
+			{ return (lower_bound_((const_link_type)RB_TREE_ROOT_, (const_link_type)RB_TREE_END_, key)); }
 
 			iterator	upper_bound( const key_type& key)
-			{ return (upper_bound_(ROOT, END, key)); }
+			{ return (upper_bound_(RB_TREE_ROOT_, RB_TREE_END_, key)); }
 
 			const_iterator	upper_bound( const key_type& key) const
-			{ return (upper_bound_((const_link_type)ROOT, (const_link_type)END, key)); }
+			{ return (upper_bound_((const_link_type)RB_TREE_ROOT_, (const_link_type)RB_TREE_END_, key)); }
 
 
 
@@ -689,9 +689,9 @@ class	rb_tree
 			void	initialize()
 			{
 				dummy_->color = RED;
-				ROOT = NULL;
-				BEGIN = dummy_;
-				PREV_END = NULL;
+				RB_TREE_ROOT_ = NULL;
+				RB_TREE_BEGIN_ = dummy_;
+				RB_TREE_PREV_RB_TREE_END_ = NULL;
 				dummy_->right = dummy_;
 
 				size_ = 0;
@@ -754,8 +754,8 @@ class	rb_tree
 		void	leftRotate(link_type rotate_root)
 		{
 			link_type	new_parent = rotate_root->right;
-			if (rotate_root == ROOT)
-				ROOT = rotate_root;
+			if (rotate_root == RB_TREE_ROOT_)
+				RB_TREE_ROOT_ = rotate_root;
 			
 			rotate_root->moveDown(new_parent);
 
@@ -768,8 +768,8 @@ class	rb_tree
 		void	rightRotate(link_type rotate_root)
 		{
 			link_type	new_parent = rotate_root->left;
-			if (rotate_root == ROOT)
-				ROOT = rotate_root;
+			if (rotate_root == RB_TREE_ROOT_)
+				RB_TREE_ROOT_ = rotate_root;
 			
 			rotate_root->moveDown(new_parent);
 
@@ -795,9 +795,9 @@ class	rb_tree
 
 		void	fixRedRed(link_type child_to_fix)
 		{
-			if (child_to_fix == ROOT)
+			if (child_to_fix == RB_TREE_ROOT_)
 			{
-				ROOT->color = BLACK;
+				RB_TREE_ROOT_->color = BLACK;
 				return ;
 			}
 
@@ -866,8 +866,8 @@ class	rb_tree
 
 			if (new_subroot == NULL)
 			{
-				if (node_to_delete == ROOT)
-					ROOT = NULL;
+				if (node_to_delete == RB_TREE_ROOT_)
+					RB_TREE_ROOT_ = NULL;
 				else
 				{
 					if ((new_subroot == NULL || new_subroot->color == BLACK)
@@ -891,7 +891,7 @@ class	rb_tree
 			else if (node_to_delete->left == NULL
 					|| node_to_delete->right == NULL)
 			{
-				if (node_to_delete == ROOT)
+				if (node_to_delete == RB_TREE_ROOT_)
 				{
 					// std::cout << "here" << std::endl;
 					node_to_delete->swapNode(new_subroot);
@@ -925,7 +925,7 @@ class	rb_tree
 
 		void	fixDoubleBlack(link_type child_to_fix)
 		{
-			if (child_to_fix == ROOT)
+			if (child_to_fix == RB_TREE_ROOT_)
 				return ;
 			
 			link_type	parent = child_to_fix->parent;
@@ -995,7 +995,7 @@ class	rb_tree
 
 		link_type	findInsertPlace(const value_type &value)
 		{
-			link_type	current_node = ROOT;
+			link_type	current_node = RB_TREE_ROOT_;
 
 			if (current_node)
 				while (1)
@@ -1026,33 +1026,33 @@ class	rb_tree
 			{
 				new_node = createNode(value);
 				new_node->parent = pos;
-				ROOT = new_node;
-				BEGIN = new_node;
-				PREV_END = new_node;
+				RB_TREE_ROOT_ = new_node;
+				RB_TREE_BEGIN_ = new_node;
+				RB_TREE_PREV_RB_TREE_END_ = new_node;
 			}
 			else if (key_compare_(key_(value), key_(pos)))
 			{
 				new_node = createNode(value);
 				new_node->parent = pos;
 				pos->left = new_node;
-				if (pos == BEGIN)
-					BEGIN = new_node;
+				if (pos == RB_TREE_BEGIN_)
+					RB_TREE_BEGIN_ = new_node;
 			}
 			else if (key_compare_(key_(pos), key_(value)))
 			{
 				new_node = createNode(value);
 				new_node->parent = pos;
 				pos->right = new_node;
-				if (pos == PREV_END)
-					PREV_END = new_node;
+				if (pos == RB_TREE_PREV_RB_TREE_END_)
+					RB_TREE_PREV_RB_TREE_END_ = new_node;
 			}
 			else
 				return (ft::make_pair(iterator(pos), false));
 
 			link_type	save_new_node = new_node;
 			fixRedRed(new_node);
-			ROOT->color = BLACK;
-			ROOT->parent = dummy_;
+			RB_TREE_ROOT_->color = BLACK;
+			RB_TREE_ROOT_->parent = dummy_;
 			return (ft::make_pair(iterator(save_new_node), true));
 		}
 
@@ -1061,8 +1061,8 @@ key_type key_(const_link_type x) const { return (KeyOfValue_()(*(x->value))); }
 key_type key_(value_type x) const { return (KeyOfValue_()(x)); }
 key_type key_(iterator x) const { return (KeyOfValue_()(*x)); }
 key_type key_(const_iterator x) const { return (KeyOfValue_()(*x)); }
-link_type root_() { return (ROOT); }
-const_link_type root_() const { return (ROOT); }
+link_type root_() { return (RB_TREE_ROOT_); }
+const_link_type root_() const { return (RB_TREE_ROOT_); }
 	// ~protected:
 
 	private:
@@ -1143,7 +1143,7 @@ const_link_type root_() const { return (ROOT); }
 			dummy_->parent = from.dummy_->parent;
 			dummy_->left= from.dummy_->left;
 			dummy_->right = from.dummy_->right;
-			ROOT->parent = dummy_;
+			RB_TREE_ROOT_->parent = dummy_;
 			size_ = from.size_;
 			from.initialize();
 		}
@@ -1174,6 +1174,12 @@ const_link_type root_() const { return (ROOT); }
 			std::cout << "============================================" << std::endl;
 			std::cout << std::endl;
 		}
+
+// Macro(undef)
+#undef RB_TREE_ROOT_
+#undef RB_TREE_BEGIN_
+#undef RB_TREE_PREV_RB_TREE_END_
+#undef RB_TREE_END_
 
 };	// class rb_tree
 
