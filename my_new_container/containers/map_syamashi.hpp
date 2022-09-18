@@ -30,7 +30,7 @@ class map {
   };
 
  private:
-  typedef _Rb_tree<key_type, value_type, ft::_Select1st<value_type>, key_compare, allocator_type> _Rep_type;
+  typedef rb_tree<key_type, value_type, ft::_Select1st<value_type>, key_compare, allocator_type> _Rep_type;
 
   /// The actual tree structure.
   _Rep_type _M_t;

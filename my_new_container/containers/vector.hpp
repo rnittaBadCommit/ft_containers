@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:01:22 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/16 11:17:12 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/18 16:00:43 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,8 +276,8 @@ class	vector
 
 				void	insert( iterator pos, size_type count, const T& value )
 				{
-					if (count < 0)
-						throw std::length_error("vector::insert: length_error: count < 0");
+					// if (count < 0)  // always true when size_type = size_t, and get warning(which is treated as errors) by c++(no warning by clang++)
+					// 	throw std::length_error("vector::insert: length_error: count < 0");
 					size_type	new_size = size() + count;
 
 					if (new_size <= capacity())	// enough capacity

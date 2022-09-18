@@ -16,7 +16,7 @@ class set {
   typedef _Alloc allocator_type;
 
  private:
-  typedef _Rb_tree<key_type, value_type, ft::_Identity<value_type>, key_compare,
+  typedef rb_tree<key_type, value_type, ft::_Identity<value_type>, key_compare,
                    allocator_type>
       _Rep_type;
 

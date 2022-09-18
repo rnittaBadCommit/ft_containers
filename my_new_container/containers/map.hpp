@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 23:47:50 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/16 00:23:37 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/18 14:37:48 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ class	map
 
 	private:
 		// Data
-			typedef _Rb_tree<key_type, value_type, ft::_Select1st<value_type>,
+			typedef rb_tree<key_type, value_type, ft::_Select1st<value_type>,
 							key_compare, allocator_type>	storage_type_;
 
 			storage_type_	storage_;
