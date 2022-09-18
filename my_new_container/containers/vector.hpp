@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:01:22 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/18 16:00:43 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/18 18:57:36 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ class	vector
 				void	assign( size_type count, const value_type& value )
 				{
 					if (count > capacity())
-					{
+					{	// less capacity
 						clear();
 						deallocate();
 						first_ = allocate(count);
@@ -117,7 +117,7 @@ class	vector
 							construct(last_, value);
 					}
 					else
-					{
+					{	// enough capacity
 						pointer		ptr = first_;
 						size_type	i = 0;
 						size_type	_size = size();
@@ -140,7 +140,7 @@ class	vector
 					size_type	count = ft::distance(first, last);
 
 					if (count > capacity())
-					{
+					{	// less capacity
 						clear();
 						deallocate();
 						first_ = allocate(count);
@@ -150,14 +150,14 @@ class	vector
 							construct(last_, *itr);
 					}
 					else
-					{
+					{	// enough capacity
 						pointer		dest = first_;
 						size_type	_size = size();
 						size_type	i = 0;
 
-						for (; i < _size; ++i, ++dest, ++first)
+						for (; i < _size && first != last; ++i, ++dest, ++first)
 							*dest = *first;
-						if (count > _size)
+						if (count > _size && first != last)
 							for (; i < count; ++i, ++last_, ++first)
 								construct(last_, *first);
 						else
