@@ -228,7 +228,7 @@ class	rb_iterator_
 	
 	public:
 		rb_iterator_()
-		: iterator_node_()
+		: iterator_node_(NULL)
 		{
 
 		}
@@ -239,6 +239,12 @@ class	rb_iterator_
 
 		}
 
+		rb_iterator_( const rb_iterator_& other )
+		: iterator_node_(other.iterator_node_)
+		{
+
+		}
+
 		reference	operator*() const
 		{ return (*iterator_node_->value); }
 
@@ -259,7 +265,7 @@ class	rb_iterator_
 			return (tmp);
 		}
 
-		Self_	operator--()
+		Self_&	operator--()
 		{
 			iterator_node_ = rb_tree_decrement(iterator_node_);
 			return (*this);
@@ -283,7 +289,6 @@ class	rb_iterator_
 		{ return (iterator_node_); }
 	// ~public:
 
-	protected:
 		link_type	iterator_node_;
 
 };
@@ -292,9 +297,11 @@ template< typename T >
 class	rb_const_iterator_
 {
 	public:
-		typedef T	value_type;
+		typedef T			value_type;
 		typedef const T&	reference;
 		typedef const T*	pointer;
+
+		typedef rb_iterator_<T>		iterator;
 
 		typedef ft::bidirectional_iterator_tag	iterator_category;
  		typedef ptrdiff_t	difference_type;
@@ -305,7 +312,7 @@ class	rb_const_iterator_
 	
 	public:
 		rb_const_iterator_()
-		: iterator_node_()
+		: iterator_node_(NULL)
 		{
 
 		}
@@ -314,6 +321,12 @@ class	rb_const_iterator_
 		: iterator_node_(node)
 		{
 
+		}
+
+		rb_const_iterator_( const iterator& other)
+		: iterator_node_(other.iterator_node_)
+		{
+			
 		}
 
 		reference	operator*() const
@@ -336,7 +349,7 @@ class	rb_const_iterator_
 			return (tmp);
 		}
 
-		Self_	operator--()
+		Self_&	operator--()
 		{
 			iterator_node_ = rb_tree_decrement(iterator_node_);
 			return (*this);
@@ -359,9 +372,7 @@ class	rb_const_iterator_
 		link_type	get_link() const
 		{ return (iterator_node_); }
 	// ~public:
-	
 
-	protected:
 		link_type	iterator_node_;
 
 };
@@ -533,11 +544,6 @@ class	rb_tree
 
 			size_type	erase( const key_type& key)
 			{
-				//std::cout << std::endl;
-				//std::cout << "before" << std::endl;
-				// printTree(RB_TREE_ROOT_);
-				//std::cout << "erase key: " << key << std::endl;
-				
 				if (RB_TREE_ROOT_ == NULL)
 					return (0);
 
@@ -550,8 +556,6 @@ class	rb_tree
 				link_type	save_prev_end = RB_TREE_PREV_RB_TREE_END_;
 
 				deleteNode(it_to_delete.get_link());
-				//std::cout << "after" << std::endl;
-				// printTree(RB_TREE_ROOT_);
 				if (size_)
 				{
 					if (save_it_to_delete == save_begin)
@@ -893,13 +897,10 @@ class	rb_tree
 			{
 				if (node_to_delete == RB_TREE_ROOT_)
 				{
-					// std::cout << "here" << std::endl;
 					node_to_delete->swapNode(new_subroot);
 					new_subroot->left = NULL;
 					new_subroot->right = NULL;
 					destroyNode(node_to_delete);
-					// std::cout << "node_to_delete: [" << node_to_delete << "]" << std::endl;
-					// std::cout << "deleteNode done" << std::endl;
  				}
 				else
 				{
@@ -1047,8 +1048,12 @@ class	rb_tree
 					RB_TREE_PREV_RB_TREE_END_ = new_node;
 			}
 			else
+			{
+				printTree(RB_TREE_ROOT_);
 				return (ft::make_pair(iterator(pos), false));
+			}
 
+			printTree(RB_TREE_ROOT_);
 			link_type	save_new_node = new_node;
 			fixRedRed(new_node);
 			RB_TREE_ROOT_->color = BLACK;
@@ -1161,15 +1166,15 @@ const_link_type root_() const { return (RB_TREE_ROOT_); }
 					std::cout << " " << key_(root) << " ";
 				else
 					std::cout << "(" << key_(root) << ")";
-				std::cout << "[" << root << "]" << std::endl;
+				std::cout << "[" << &*const_iterator(root) << "]" << std::endl;
 				printTree_(root->left, space_width);
 			}
 		}
 
 		void	printTree( const_link_type root )
-		{
+		{return;
 			std::cout << "============================================" << std::endl;
-			std::cout << "dummy_: [" << dummy_ <<  "]  dummy_->left: " << dummy_->left << std::endl;;
+			std::cout << "dummy_: [" << &*iterator(dummy_) <<  "]  dummy_->left: " << dummy_->left << std::endl;;
 			printTree_(root, 0);
 			std::cout << "============================================" << std::endl;
 			std::cout << std::endl;
