@@ -20,7 +20,7 @@ $(OBJDIR)%.o:%.cpp
 $(NAME_FT): $(OBJDIR) $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME_FT)
 
-$(NAME_STD): fclean set_std $(OBJDIR) $(OBJS)
+$(NAME_STD): set_std $(OBJDIR) $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME_STD)
 
 clean:
@@ -34,7 +34,7 @@ fclean: clean
 
 re: fclean $(NAME_FT)
 
-ft: fclean $(NAME_FT)
+ft: clean $(NAME_FT)
 	@rm -f ft_result
 	@echo
 	@echo
@@ -50,7 +50,7 @@ ft: fclean $(NAME_FT)
 	@echo
 
 
-std: fclean $(NAME_STD)
+std: clean $(NAME_STD)
 	@rm -f std_result
 	@echo
 	@echo
@@ -65,11 +65,17 @@ std: fclean $(NAME_STD)
 	@echo
 	@echo
 
-test: ft
+test: fclean ft std diff test_sanitize_address
+	@echo
+	@echo
+	@echo "DONE"
+	@echo
+	@echo
 
-test: std
+teset:
+	echo "std"
 
-test:
+diff:
 	@echo
 	@echo
 	@echo "=====================  diff ft_result std_result ====================="
@@ -80,7 +86,7 @@ test:
 	@echo
 	@echo
 
-test: set_sanitize_address re
+test_sanitize_address: set_sanitize_address re
 	@echo
 	@echo
 	@echo "=====================  test -fsanitize=address START  ====================="

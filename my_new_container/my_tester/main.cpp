@@ -140,9 +140,9 @@ int main(int argc, char** argv) {
 	}
 
 	#ifdef ERR
-		ft::vector<int>	src;
-		src[1] = 42;
-		ft::vector<const int>	const_vector(src);
+		ft::vector<const int>	tmp;
+		tmp.push_back(24);
+		std::cout << tmp[0] << std::endl;
 	#endif
 
 	return (0);
