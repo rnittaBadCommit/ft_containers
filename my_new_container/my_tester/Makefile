@@ -24,45 +24,95 @@ $(NAME_STD): $(OBJDIR) $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME_STD)
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(DEPS)
 	$(RM) $(SRCS:.cpp=.d)
 
 fclean: clean
-	$(RM)  $(NAME_FT) $(NAME_STD)
+	$(RM) $(NAME_FT) $(NAME_STD)
+	rm -rf $(OBJDIR)
+	$(RM) ft_result std_result result_diff fsanitize_result
 
 re: fclean $(NAME_FT)
 
 ft: fclean $(NAME_FT)
+	@rm -f ft_result
 	@echo
 	@echo
-	@echo "ft START"
+	@echo "=====================  ft START  ====================="
+	@echo
+	./$(NAME_FT) 42 | tee -a ft_result
+	./$(NAME_FT) 43 | tee -a ft_result
+	./$(NAME_FT) 44 | tee -a ft_result
+	./$(NAME_FT) 45 | tee -a ft_result
+	@echo
+	@echo "=====================  ft END  ====================="
 	@echo
 	@echo
-	@./$(NAME_FT)
+
 
 std: fclean set_std $(NAME_STD)
+	@rm -f std_result
 	@echo
 	@echo
-	@echo "ft START"
+	@echo "=====================  std START  ====================="
+	@echo
+	./$(NAME_STD) 42 | tee -a std_result
+	./$(NAME_STD) 43 | tee -a std_result
+	./$(NAME_STD) 44 | tee -a std_result
+	./$(NAME_STD) 45 | tee -a std_result
+	@echo
+	@echo "=====================  std END  ====================="
 	@echo
 	@echo
-	@./$(NAME_STD)
 
-test: set_sanitize_address
+test: ft std
+	@echo
+	@echo
+	@echo "=====================  diff ft_result std_result ====================="
+	@echo
+	@diff ft_result std_result | tee result_diff
+	@echo
+	@echo "=====================  diff END  ====================="
+	@echo
+	@echo
 
-exec_ft: $(NAME_FT)
-	./$(NAME_FT)
+test: set_sanitize_address re
+	@echo
+	@echo
+	@echo "=====================  test -fsanitize=address START  ====================="
+	@echo
+	./$(NAME_FT) 42 2>&1 >/dev/null  | tee -a fsanitize_result
+	./$(NAME_FT) 43 2>&1 >/dev/null  | tee -a fsanitize_result
+	./$(NAME_FT) 44 2>&1 >/dev/null  | tee -a fsanitize_result
+	./$(NAME_FT) 45 2>&1 >/dev/null  | tee -a fsanitize_result
+	@echo
+	@echo "=====================  test -fsanitize=address END  ====================="
+	@echo
+	@echo
 
-set_std:
-	$(eval FT := 0)
+test: set_sanitize_leak re
+	@echo
+	@echo
+	@echo "=====================  test -fsanitize=leak START  ====================="
+	@echo
+	./$(NAME_FT) 42 2>&1 >/dev/null  | tee -a fsanitize_result
+	./$(NAME_FT) 43 2>&1 >/dev/null  | tee -a fsanitize_result
+	./$(NAME_FT) 44 2>&1 >/dev/null  | tee -a fsanitize_result
+	./$(NAME_FT) 45 2>&1 >/dev/null  | tee -a fsanitize_result
+	@echo
+	@echo "=====================  test -fsanitize=leak END  ====================="
+	@echo
+	@echo
 
 set_sanitize_address:
 	$(eval CXXFLAGS := $(DEFAULT_CXXFLAGS) -fsanitize=address)
 
-set_sanitize_leaks:
-	$(eval CXXFLAGS :== $(DEFAULT_CXXFLAGS) -fsanitize=leak)
+set_sanitize_leak:
+	$(eval CXXFLAGS := $(DEFAULT_CXXFLAGS) -fsanitize=leak)
+
+
 
 # -include $(DEPS)
 
-.PHONY: clean fclean re set_test ft std test set_std set_sanitize_address set_sanitize_leaks
+.PHONY: all clean fclean re FORCE set_test ft std test set_std set_sanitize_address set_sanitize_leak
 
