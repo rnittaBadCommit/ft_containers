@@ -20,7 +20,7 @@ $(OBJDIR)%.o:%.cpp
 $(NAME_FT): $(OBJDIR) $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME_FT)
 
-$(NAME_STD): set_std $(OBJDIR) $(OBJS)
+$(NAME_STD): fclean set_std $(OBJDIR) $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME_STD)
 
 clean:
