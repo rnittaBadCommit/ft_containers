@@ -94,25 +94,8 @@ test: set_sanitize_address re
 	@echo
 	@echo
 
-test: set_sanitize_leak re
-	@echo
-	@echo
-	@echo "=====================  test -fsanitize=leak START  ====================="
-	@echo
-	./$(NAME_FT) 42 2>&1 >/dev/null  | tee -a fsanitize_result
-	./$(NAME_FT) 43 2>&1 >/dev/null  | tee -a fsanitize_result
-	./$(NAME_FT) 44 2>&1 >/dev/null  | tee -a fsanitize_result
-	./$(NAME_FT) 45 2>&1 >/dev/null  | tee -a fsanitize_result
-	@echo
-	@echo "=====================  test -fsanitize=leak END  ====================="
-	@echo
-	@echo
-
 set_sanitize_address:
 	$(eval CXXFLAGS := $(DEFAULT_CXXFLAGS) -fsanitize=address)
-
-set_sanitize_leak:
-	$(eval CXXFLAGS := $(DEFAULT_CXXFLAGS) -fsanitize=leak)
 
 ft_err: set_err $(NAME_FT)
 
@@ -126,5 +109,4 @@ set_std:
 
 # -include $(DEPS)
 
-.PHONY: all clean fclean re FORCE set_test ft std test set_std set_sanitize_address set_sanitize_leak
-
+.PHONY: all clean fclean re FORCE set_test ft std test set_std set_sanitize_address
