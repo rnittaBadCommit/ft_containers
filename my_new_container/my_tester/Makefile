@@ -65,7 +65,11 @@ std: fclean set_std $(NAME_STD)
 	@echo
 	@echo
 
-test: ft std
+test: ft
+
+test: std
+
+test:
 	@echo
 	@echo
 	@echo "=====================  diff ft_result std_result ====================="
@@ -110,7 +114,15 @@ set_sanitize_address:
 set_sanitize_leak:
 	$(eval CXXFLAGS := $(DEFAULT_CXXFLAGS) -fsanitize=leak)
 
+ft_err: set_err $(NAME_FT)
 
+std_err: set_err $(NAME_STD)
+
+set_err:
+	$(eval CXXFLAGS := $(DEFAULT_CXXFLAGS) -DERR=1)
+
+set_std:
+	$(eval ft := 0)
 
 # -include $(DEPS)
 

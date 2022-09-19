@@ -8,7 +8,6 @@
 	namespace ft = std;
 #else
 	#include "../containers/map.hpp"
-	#include "../containers/set.hpp"
 	#include "../containers/stack.hpp"
 	#include "../containers/vector.hpp"
 	#include "../utils/algorithm.hpp"
@@ -18,6 +17,7 @@
 #endif
 
 #include <stdlib.h>
+#include <iostream>
 
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
@@ -117,5 +117,33 @@ int main(int argc, char** argv) {
 		std::cout << *it;
 	}
 	std::cout << std::endl;
+
+	ft::map<int, std::string> string_map;
+
+	string_map[100] = "abc";
+	string_map[-1000] = "def";
+
+	ft::map<int, std::string>::iterator	it = string_map.begin(), ite = string_map.end();
+	std::cout << "it->first: " << it->first << ", it->second: " << it->second << std::endl;
+	it++;
+	std::cout << "it->first: " << it->first << ", it->second: " << it->second << std::endl;
+	it--;
+	std::cout << "it->first: " << it->first << ", it->second: " << it->second << std::endl;
+	++it;
+	std::cout << "it->first: " << it->first << ", it->second: " << it->second << std::endl;
+	--it;
+	std::cout << "it->first: " << it->first << ", it->second: " << it->second << std::endl;
+	while (it != ite)
+	{
+		std::cout << "it->first: " << it->first << ", it->second: " << it->second << std::endl;
+		++it;
+	}
+
+	#ifdef ERR
+		ft::vector<int>	src;
+		src[1] = 42;
+		ft::vector<const int>	const_vector(src);
+	#endif
+
 	return (0);
 }
