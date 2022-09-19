@@ -17,7 +17,6 @@
 #endif
 
 #include <stdlib.h>
-#include <iostream>
 
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
@@ -117,6 +116,9 @@ int main(int argc, char** argv) {
 		std::cout << *it;
 	}
 	std::cout << std::endl;
+
+
+
 
 	ft::map<int, std::string> string_map;
 
