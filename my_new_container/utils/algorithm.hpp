@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 10:45:48 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/16 00:03:34 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 11:33:39 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ bool	lexicographical_compare( InputIt1 first1, InputIt1 last1,
 }
 
 
-};	// namespace ft
+}	// namespace ft
 
 #endif

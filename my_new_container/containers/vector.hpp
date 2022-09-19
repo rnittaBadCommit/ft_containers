@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:01:22 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/18 18:57:36 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 11:33:58 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -563,7 +563,6 @@ void	swap( ft::vector<T,Alloc>& lhs,
 { lhs.swap(rhs); }
 
 
-};  // namespace ft
-
+}	// namespace ft
 
 #endif

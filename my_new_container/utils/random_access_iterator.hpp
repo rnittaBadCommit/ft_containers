@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:47:56 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/19 02:46:04 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 11:33:26 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ typename random_access_iterator<Iter1>::difference_type		operator-( const random
 { return (lhs.base() - rhs.base()); }
 
 
-
-};	// namespace ft
+}	// namespace ft
 
 #endif

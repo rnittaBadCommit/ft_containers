@@ -1048,12 +1048,7 @@ class	rb_tree
 					RB_TREE_PREV_RB_TREE_END_ = new_node;
 			}
 			else
-			{
-				printTree(RB_TREE_ROOT_);
 				return (ft::make_pair(iterator(pos), false));
-			}
-
-			printTree(RB_TREE_ROOT_);
 			link_type	save_new_node = new_node;
 			fixRedRed(new_node);
 			RB_TREE_ROOT_->color = BLACK;
@@ -1153,32 +1148,32 @@ const_link_type root_() const { return (RB_TREE_ROOT_); }
 			from.initialize();
 		}
 
-		void	printTree_( const_link_type root, int space_width )
-		{
-			if (root)
-			{
-				space_width += 10;
-				printTree_(root->right, space_width);
-				std::cout << std::endl;
-				for (int i = 10; i < space_width; ++i)
-					std::cout << " ";
-				if (root->color == BLACK)
-					std::cout << " " << key_(root) << " ";
-				else
-					std::cout << "(" << key_(root) << ")";
-				std::cout << "[" << &*const_iterator(root) << "]" << std::endl;
-				printTree_(root->left, space_width);
-			}
-		}
+		// void	printTree_( const_link_type root, int space_width )
+		// {
+		// 	if (root)
+		// 	{
+		// 		space_width += 10;
+		// 		printTree_(root->right, space_width);
+		// 		std::cout << std::endl;
+		// 		for (int i = 10; i < space_width; ++i)
+		// 			std::cout << " ";
+		// 		if (root->color == BLACK)
+		// 			std::cout << " " << key_(root) << " ";
+		// 		else
+		// 			std::cout << "(" << key_(root) << ")";
+		// 		std::cout << "[" << &*const_iterator(root) << "]" << std::endl;
+		// 		printTree_(root->left, space_width);
+		// 	}
+		// }
 
-		void	printTree( const_link_type root )
-		{return;
-			std::cout << "============================================" << std::endl;
-			std::cout << "dummy_: [" << &*iterator(dummy_) <<  "]  dummy_->left: " << dummy_->left << std::endl;;
-			printTree_(root, 0);
-			std::cout << "============================================" << std::endl;
-			std::cout << std::endl;
-		}
+		// void	printTree( const_link_type root )
+		// {return;
+		// 	std::cout << "============================================" << std::endl;
+		// 	std::cout << "dummy_: [" << &*iterator(dummy_) <<  "]  dummy_->left: " << dummy_->left << std::endl;;
+		// 	printTree_(root, 0);
+		// 	std::cout << "============================================" << std::endl;
+		// 	std::cout << std::endl;
+		// }
 
 // Macro(undef)
 #undef RB_TREE_ROOT_
@@ -1223,7 +1218,7 @@ const_link_type root_() const { return (RB_TREE_ROOT_); }
 							const ft::rb_tree<Key, Val, Compare, Alloc>& rhs )
 	{ return !(lhs < rhs); }
 
-};	// namespace ft
 
+}	// namespace ft
 
 #endif

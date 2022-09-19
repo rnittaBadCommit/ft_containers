@@ -24,5 +24,6 @@ struct _Identity {
 template <typename _Tp>
 struct _Identity<const _Tp> : _Identity<_Tp> {};
 
-};  // namespace ft
+}   // namespace ft
+
 #endif

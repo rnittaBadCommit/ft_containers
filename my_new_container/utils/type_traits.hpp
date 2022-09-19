@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:48:03 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/16 00:25:58 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 11:32:34 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ namespace ft
 	template< class T >
 	struct	is_integral : public is_integral_helper<typename remove_cv<T>::type> {};
 
-};	// namespace ft
+
+}	// namespace ft
 
 #endif

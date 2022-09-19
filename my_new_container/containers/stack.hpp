@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 23:47:01 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/16 00:08:22 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 11:34:08 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,6 @@ bool	operator>=( const ft::stack<T,Container>& lhs, const ft::stack<T,Container>
 { return !(lhs.c < rhs.c); }
 
 
-};	// namespace ft
+}	// namespace ft
 
 #endif

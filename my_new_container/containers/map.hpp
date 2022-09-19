@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 23:47:50 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/19 03:29:51 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 11:34:22 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,7 +324,6 @@ class	map
 		{ return (lhs.storage_ >= rhs.storage_); }
 
 
-
-};	// namespace ft
+}	// namespace ft
 
 #endif
