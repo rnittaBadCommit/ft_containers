@@ -105,7 +105,7 @@ set_err:
 	$(eval CXXFLAGS := $(DEFAULT_CXXFLAGS) -DERR=1)
 
 set_std:
-	$(eval ft := 0)
+	$(eval FT := 0)
 
 # -include $(DEPS)
 
