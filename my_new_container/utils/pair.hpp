@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:47:46 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/16 00:29:39 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 11:38:24 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ bool	operator>=( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs )
 { return !(lhs < rhs); }
 
 
-};	// namespace ft
+}	// namespace ft
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:48:03 by rnitta            #+#    #+#             */
-/*   Updated: 2022/09/19 11:32:34 by rnitta           ###   ########.fr       */
+/*   Updated: 2022/09/19 11:38:04 by rnitta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ namespace ft
 	struct	is_integral_helper< long > : public true_type {};
 	template<>
 	struct	is_integral_helper< unsigned long > : public true_type {};
-	template<>
-	struct	is_integral_helper< long long > : public true_type {};
-	template<>
-	struct	is_integral_helper< unsigned long long > : public true_type {};
+	// template<>	// not supported at c++ 1998
+	// struct	is_integral_helper< long long > : public true_type {};
+	// template<>	// not supported at c++ 1998
+	// struct	is_integral_helper< unsigned long long > : public true_type {};
 
 	template< class T >
 	struct	is_integral : public is_integral_helper<typename remove_cv<T>::type> {};
