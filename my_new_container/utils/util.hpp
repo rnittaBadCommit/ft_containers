@@ -1,29 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util.hpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rnitta <rnitta@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/19 13:19:50 by rnitta            #+#    #+#             */
+/*   Updated: 2022/09/19 13:19:55 by rnitta           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef UTIL_HPP
-#define UTIL_HPP
+# define UTIL_HPP
 
 namespace ft {
-//// _KeyOfValue
 
-template <typename _Pair>
-struct _Select1st {
-  typename _Pair::first_type& operator()(_Pair& __x) const { return __x.first; }
 
-  const typename _Pair::first_type& operator()(const _Pair& __x) const {
-    return __x.first;
-  }
+template< typename Pair >
+struct _Select1st
+{
+	typename Pair::first_type&	operator()( Pair& pair ) const
+	{ return (pair.first); }
+
+	const typename Pair::first_type&	operator()( const Pair& pair ) const
+	{ return (pair.first); }
 };
 
-template <typename _Tp>
-struct _Identity {
-  _Tp& operator()(_Tp& __x) const { return __x; }
 
-  const _Tp& operator()(const _Tp& __x) const { return __x; }
-};
-
-// Partial specialization, avoids confusing errors in e.g. std::set<const T>.
-template <typename _Tp>
-struct _Identity<const _Tp> : _Identity<_Tp> {};
-
-}   // namespace ft
+}	// namespace ft
 
 #endif
